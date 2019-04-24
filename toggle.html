@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Development Sandbox</title>
+<title>Range Sliders as Toggles</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +15,9 @@
 body { overflow-X: hidden; margin: 0; padding: 0; padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left); background: #fff; color: #000; font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif; font-feature-settings: "kern" 1, "liga" 1; font-size: 15pt; -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; -webkit-oveflow-scrolling: touch; }
 section { display: flex; flex-flow: column; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 1rem; }
 section > * { max-width: 80ch; }
-h1 { margin: 0 0 .5em; font-size: 50pt; line-height: 1.15; text-align: center; }
+h1 { margin: 1rem 0; font-size: 300%; line-height: 1.15; text-align: center; }
+h2 { margin: 1rem 0; font-size: 150%; line-height: 1.15; text-align: center; }
+h1 + h2 { margin-top: -1.15rem; }
 p {  margin: 1rem 0; }
 p.update { font-size: 75%; }
 form { margin: 1rem 0; }
@@ -101,6 +103,8 @@ fieldset.toggle input[type="range"]::-moz-range-thumb {
 <section>
 
 <h1>Range Input as Toggle</h1>
+<h2><a href="https://github.com/mrdestructicity/toggle" target="_blank">(You can also find this at GitHub if you care.)</a></h2>
+
 <p>A lot of the toggles I see implemented on sites are just fancy checkboxes or radio buttons with a ton of Javascript behind them. Which seems crazy to me, and also creates a ton of accessibility issues. But there's no "toggle" input type, so what's a web developer to do?</p>
 
 <p>Then I had a thought. Isn't a toggle just a range slider with values of 0 and 1? Why not just style the heck out of a range slider. There are some great tools out there to do it, like <a href="http://danielstern.ca/range.css">Daniel Stern's range.css CSS Style Generator for Range Inputs</a>. And it worked! Sort of.</p>
@@ -126,6 +130,7 @@ fieldset.toggle input[type="range"]::-moz-range-thumb {
 
 <p class="update"><strong>First Version: 2019/04/24</strong></p>
 
+
 </section>
 
 </body>
@@ -150,3 +155,5 @@ document.querySelectorAll("fieldset.toggle").forEach(function(elem) {
 //  
 
 </script>
+</body>
+</html>
