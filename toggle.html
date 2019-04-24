@@ -152,18 +152,25 @@ input[type=range]::-ms-thumb {
 <p>Well, no. The Shadow DOM elements don't want to play along in some browsers. (I'm looking at you, Firefox.) So let's do the next best thing: turn off all pointer events on the range slider itself, wrap the slider in a button, and write some slightly more complex Javascript to change the value. Voila!</p>
 
 <form>
- <button id="toggle1" role="switch" aria-checked="true" class="toggle" ><input name="toggle1" type="range" min="0" max="1" step="1" value="1" required /></button>
+ <button id="toggle1" role="switch" aria-checked="false" class="toggle" ><input name="toggle1" type="range" min="0" max="1" step="1" value="0" required /></button>
  <label for="toggle1" style="color: #00f;">Coolness</label><br />
 
  <button id="toggle2" role="switch" aria-checked="false" class="toggle"><input name="toggle2" type="range" min="0" max="1" step="1" value="0" required /> </button>
- <label for="toggle2" style="color: #f00;">Hotness</label>
+ <label for="toggle2" style="color: #f00;">Hotness</label><br />
+
+ <button id="toggle3" role="switch" aria-checked="false" class="toggle"><input name="toggle3" type="range" min="0" max="1" step="1" value="0" required /> </button>
+ <label for="toggle3" style="color: #0f0;">Contrariness</label><br />
+
+ <button id="toggle4" role="switch" aria-checked="false" class="toggle"><input name="toggle4" type="range" min="0" max="1" step="1" value="0" required /> </button>
+ <label for="toggle4" style="color: beige;">Beigeosity</label>
 </form>
 
 <p>The only problem? We're back to not being not-so-accessible again. Now, I've gone through and added some ARIA code in for the "switch" role, which I think will help, but I'm not sure that takes care of everything. If you've got some ideas on how to improve it further, <a href="mailto:knave@7415comics.com">I love to hear from you</a>.</p>
 
 <p><em>I haven't styled or tested these in IE/Edge yet, because I don't have easy access to a Windows machine. If anyone has any suggestions for styling I'd love to hear from you, too.</em></p>
 
-<p class="update"><strong>Second Version: 2019/04/24</strong> Replaced the fieldset with a button (more accessible), and added in some ARIA code for the "switch" role. Also replaced stepDown() and stepUp() with straight up value assignments in case something goes wrong.</p>
+<p class="update"><strong>Third Version: 2019/04/24</strong> Replaced getElementsByName with firstChild, in case for some reason you wanted to have the button and input to have different identifiers.</p>
+<p class="update"><strong>Second Version: 2019/04/24</strong> Replaced the fieldset with a button (more accessible). Added ARIA mark-up for the "switch" role. Replaced stepDown() and stepUp() with straight up value assignments.</p>
 <p class="update"><strong>First Version: 2019/04/24</strong></p>
 
 </section>
@@ -181,7 +188,7 @@ input[type=range]::-ms-thumb {
 document.querySelectorAll("button.toggle").forEach(function(elem) {
   elem.addEventListener("click",function(event) {
     event.preventDefault();
-    tog = document.getElementsByName(this.id)[0]; 
+    tog = this.firstChild;
     if (tog.value == 1) { 
       tog.value = 0;
       this.setAttribute("aria-checked","false");
@@ -192,8 +199,6 @@ document.querySelectorAll("button.toggle").forEach(function(elem) {
     return false;
   });
 });
-
-//  
 
 </script>
 
