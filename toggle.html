@@ -41,8 +41,8 @@ button.toggle {
 
 button.toggle input[type="range"] {
   -webkit-appearance: none;
-  width: 45px;
-  height: 30px;
+  width: 3rem;
+  height: 2rem;
   outline: none !important;
 
   background: transparent;
@@ -51,7 +51,7 @@ button.toggle input[type="range"] {
 
 label {
   font-weight: bold;
-  line-height: 30px;
+  line-height: 2rem;
   vertical-align: middle; 
 }
 
@@ -67,16 +67,16 @@ button.toggle input[type="range"]:focus {
 
 button.toggle input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
-  height: 30px;
+  height: 2rem;
   border: 2px solid #010101;
-  border-radius: 30px;
+  border-radius: 2rem;
   background: #ffffff;
   background: linear-gradient(to right, #fff 0%,#fff 50%,#666 51%,#666 100%);
 }
 button.toggle input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 30px;
-  height: 30px;
+  width: 2rem;
+  height: 2rem;
   margin-top: -2px;
   border: 2px solid #000000;
   border-radius: 100%;
@@ -87,16 +87,16 @@ button.toggle input[type="range"]::-webkit-slider-thumb {
 
 button.toggle input[type="range"]::-moz-range-track {
   width: 100%;
-  height: 30px;
+  height: 2rem;
   border: 2px solid #010101;
-  border-radius: 30px; 
+  border-radius: 2rem; 
   background: #ffffff;
   background: linear-gradient(to right, #fff 0%,#fff 50%,#666 51%,#666 100%);
 }
 button.toggle input[type="range"]::-moz-range-thumb {
   cursor: pointer;
-  height: 30px;
-  width: 30px;
+  height: 2rem;
+  width: 2rem;
   border: 2px solid #000000;
   border-radius: 100%;
   background: #ffffff;
@@ -106,7 +106,7 @@ button.toggle input[type="range"]::-moz-range-thumb {
 
 input[type=range]::-ms-track {
   width: 100%;
-  height: 30px;
+  height: 2rem;
   cursor: pointer;
   background: transparent;
   border-color: transparent;
@@ -123,10 +123,10 @@ input[type=range]::-ms-fill-upper {
   background: #ffffff;
 }
 input[type=range]::-ms-thumb {
-  width: 30px;
-  height: 30px;
+  width: 2rem;
+  height: 2rem;
   border: 2px solid #000000;
-  border-radius: 30px;
+  border-radius: 2rem;
   background: #ffffff;
   cursor: pointer;
 }
@@ -167,6 +167,7 @@ input[type=range]::-ms-thumb {
 
 <p><em>I haven't styled or tested these in IE/Edge yet, because I don't have easy access to a Windows machine. If anyone has any suggestions for styling I'd love to hear from you, too.</em></p>
 
+<p class="update"><strong>Fourth Version: 2019/04/24</strong> Replaced px units with rem equivalents.</p>
 <p class="update"><strong>Third Version: 2019/04/24</strong> Replaced getElementsByName with firstChild, in case for some reason you wanted to have the button and input to have different identifiers.</p>
 <p class="update"><strong>Second Version: 2019/04/24</strong> Replaced the fieldset with a button (more accessible). Added ARIA mark-up for the "switch" role. Replaced stepDown() and stepUp() with straight up value assignments.</p>
 <p class="update"><strong>First Version: 2019/04/24</strong></p>
