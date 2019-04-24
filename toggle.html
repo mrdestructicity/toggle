@@ -12,7 +12,8 @@
 /* You can ignore this stuff, it's just to make the page look nice. */
 
 * { box-sizing: border-box; font-family: inherit; }
-body { overflow-X: hidden; margin: 0; padding: 0; padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left); background: #fff; color: #000; font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif; font-feature-settings: "kern" 1, "liga" 1; font-size: 15pt; -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; -webkit-oveflow-scrolling: touch; }
+html { font-size: 15pt; }
+body { overflow-X: hidden; margin: 0; padding: 0; padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left); background: #fff; color: #000; font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif; font-feature-settings: "kern" 1, "liga" 1; -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; -webkit-oveflow-scrolling: touch; }
 section { display: flex; flex-flow: column; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 1rem; }
 section > * { max-width: 80ch; }
 h1 { margin: 1rem 0; font-size: 300%; line-height: 1.15; text-align: center; }
@@ -41,17 +42,16 @@ button.toggle {
 
 button.toggle input[type="range"] {
   -webkit-appearance: none;
-  width: 3rem;
-  height: 2rem;
+  width: 2.25rem;
+  height: 1.5rem;
   outline: none !important;
-
   background: transparent;
   pointer-events: none; /* This may seem counter-intuitive, but what we're doing here is stopping events from working on the range itself because it's hard to target the pseudo-elements directly and stop those working. We're going to offload the click event to the toggle. */
 }
 
 label {
   font-weight: bold;
-  line-height: 2rem;
+  line-height: 2em;
   vertical-align: middle; 
 }
 
@@ -67,16 +67,16 @@ button.toggle input[type="range"]:focus {
 
 button.toggle input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
-  height: 2rem;
+  height: 1.5rem;
   border: 2px solid #010101;
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   background: #ffffff;
   background: linear-gradient(to right, #fff 0%,#fff 50%,#666 51%,#666 100%);
 }
 button.toggle input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   margin-top: -2px;
   border: 2px solid #000000;
   border-radius: 100%;
@@ -87,16 +87,16 @@ button.toggle input[type="range"]::-webkit-slider-thumb {
 
 button.toggle input[type="range"]::-moz-range-track {
   width: 100%;
-  height: 2rem;
+  height: 1.5rem;
   border: 2px solid #010101;
-  border-radius: 2rem; 
+  border-radius: 1.5rem; 
   background: #ffffff;
   background: linear-gradient(to right, #fff 0%,#fff 50%,#666 51%,#666 100%);
 }
 button.toggle input[type="range"]::-moz-range-thumb {
   cursor: pointer;
-  height: 2rem;
-  width: 2rem;
+  height: 1.5rem;
+  width: 1.5rem;
   border: 2px solid #000000;
   border-radius: 100%;
   background: #ffffff;
@@ -106,7 +106,7 @@ button.toggle input[type="range"]::-moz-range-thumb {
 
 input[type=range]::-ms-track {
   width: 100%;
-  height: 2rem;
+  height: 1.5rem;
   cursor: pointer;
   background: transparent;
   border-color: transparent;
@@ -123,10 +123,10 @@ input[type=range]::-ms-fill-upper {
   background: #ffffff;
 }
 input[type=range]::-ms-thumb {
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border: 2px solid #000000;
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   background: #ffffff;
   cursor: pointer;
 }
@@ -159,15 +159,19 @@ input[type=range]::-ms-thumb {
  <button id="toggle3" role="switch" aria-checked="false" class="toggle"><input name="toggle3" type="range" min="0" max="1" step="1" value="0" required /> </button>
  <label for="toggle3" style="color: #0f0;">Recalcitrance</label><br />
 
- <button id="toggle4" role="switch" aria-checked="false" class="toggle"><input name="toggle4" type="range" min="0" max="1" step="1" value="0" required /> </button>
- <label for="toggle4" style="color: beige;">Beige</label>
+ <button id="toggle4" role="switch" aria-checked="false" class="toggle"><input name="morbidity" type="range" min="0" max="1" step="1" value="0" required /> </button>
+ <label for="toggle4" style="color: #f0f;">Morbidity</label><br />
+
+
+ <button id="toggle5" role="switch" aria-checked="false" class="toggle"><input name="toggle5" type="range" min="0" max="1" step="1" value="0" required /> </button>
+ <label for="toggle5" style="color: beige;">Beige</label>
 </form>
 
 <p>The only problem? We're back to not being not-so-accessible again. Now, I've gone through and added some ARIA code in for the "switch" role, which I think will help, but I'm not sure that takes care of everything. If you've got some ideas on how to improve it further, <a href="mailto:knave@7415comics.com">I'd love to hear from you</a>.</p>
 
 <p><em>I haven't styled or tested these in IE/Edge yet, because I don't have easy access to a Windows machine. If anyone has any suggestions for styling I'd love to hear from you, too.</em></p>
 
-<p class="update"><strong>Fourth Version: 2019/04/24</strong> Replaced px units with rem equivalents.</p>
+<p class="update"><strong>Fourth Version: 2019/04/24</strong> Replaced px units with em equivalents.</p>
 <p class="update"><strong>Third Version: 2019/04/24</strong> Replaced getElementsByName with firstChild, in case for some reason you wanted to have the button and input to have different identifiers.</p>
 <p class="update"><strong>Second Version: 2019/04/24</strong> Replaced the fieldset with a button (more accessible). Added ARIA mark-up for the "switch" role. Replaced stepDown() and stepUp() with straight up value assignments.</p>
 <p class="update"><strong>First Version: 2019/04/24</strong></p>
