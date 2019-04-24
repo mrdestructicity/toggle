@@ -19,7 +19,7 @@ h1 { margin: 1rem 0; font-size: 300%; line-height: 1.15; text-align: center; }
 h2 { margin: 1rem 0; font-size: 150%; line-height: 1.15; text-align: center; }
 h1 + h2 { margin-top: -1.15rem; }
 p {  margin: 1rem 0; }
-p.update { font-size: 75%; }
+p.update { width: 100%; font-size: 75%; }
 form { margin: 1rem 0; }
 
 /* CSS Style base thanks to Daniel Stern's range slider generator */
@@ -27,36 +27,45 @@ form { margin: 1rem 0; }
 
 /* GENERAL */
 
-fieldset.toggle { 
+button.toggle { 
+  appearance: none;
+  -webkit-appearance: none; 
   cursor: pointer; 
   margin: 0; 
   padding: 0;
   border: 0; 
+  background: transparent;
+  outline: none !important;
+  vertical-align: middle;
 }
 
-fieldset.toggle input[type="range"] {
+button.toggle input[type="range"] {
   -webkit-appearance: none;
   width: 45px;
   height: 30px;
   outline: none !important;
-  vertical-align: middle;
+
   background: transparent;
   pointer-events: none; /* This may seem counter-intuitive, but what we're doing here is stopping events from working on the range itself because it's hard to target the pseudo-elements directly and stop those working. We're going to offload the click event to the toggle. */
 }
 
-fieldset.toggle label {
+label {
   font-weight: bold;
   line-height: 30px;
   vertical-align: middle; 
 }
 
-fieldset.toggle input[type="range"]:focus {
+button.toggle[aria-checked="false"] + label {
+  color: #666 !important;
+}
+
+button.toggle input[type="range"]:focus {
   outline: none;
 }
 
 /* CHROME */
 
-fieldset.toggle input[type="range"]::-webkit-slider-runnable-track {
+button.toggle input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
   height: 30px;
   border: 2px solid #010101;
@@ -64,7 +73,7 @@ fieldset.toggle input[type="range"]::-webkit-slider-runnable-track {
   background: #ffffff;
   background: linear-gradient(to right, #fff 0%,#fff 50%,#666 51%,#666 100%);
 }
-fieldset.toggle input[type="range"]::-webkit-slider-thumb {
+button.toggle input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 30px;
   height: 30px;
@@ -76,7 +85,7 @@ fieldset.toggle input[type="range"]::-webkit-slider-thumb {
 
 /* MOZILLA */
 
-fieldset.toggle input[type="range"]::-moz-range-track {
+button.toggle input[type="range"]::-moz-range-track {
   width: 100%;
   height: 30px;
   border: 2px solid #010101;
@@ -84,7 +93,7 @@ fieldset.toggle input[type="range"]::-moz-range-track {
   background: #ffffff;
   background: linear-gradient(to right, #fff 0%,#fff 50%,#666 51%,#666 100%);
 }
-fieldset.toggle input[type="range"]::-moz-range-thumb {
+button.toggle input[type="range"]::-moz-range-thumb {
   cursor: pointer;
   height: 30px;
   width: 30px;
@@ -121,7 +130,7 @@ input[type=range]::-ms-thumb {
   background: #ffffff;
   cursor: pointer;
 }
-  
+
 </style>
 
 </head>
@@ -140,43 +149,46 @@ input[type=range]::-ms-thumb {
 
 <p>The problem is that a range slider doesn't quite work the way a toggle should. Namely, clicking on the track will change the value, but clicking on the handle won't. Okay, you think, no problem, let's throw some simple Javascript event listeners on the whole slider so we can change the value after any click anywhere. Problem solved, right?
 
-<p>Well, no. The Shadow DOM elements don't want to play along in some browsers. (I'm looking at you, Firefox.) So let's do the next best thing: turn off all pointer events on the range slider itself, wrap the slider in a fieldset, and write some slightly more complex Javascript to change the value. Voila!</p>
+<p>Well, no. The Shadow DOM elements don't want to play along in some browsers. (I'm looking at you, Firefox.) So let's do the next best thing: turn off all pointer events on the range slider itself, wrap the slider in a button, and write some slightly more complex Javascript to change the value. Voila!</p>
 
 <form>
- <fieldset id="toggle1" class="toggle">
-  <input name="toggle1" type="range" min="0" max="1" step="1" required />
-  <label for="toggle1">Coolness</label> 
- </fieldset>
- <fieldset id="toggle2" class="toggle">
-  <input name="toggle2" type="range" min="0" max="1" step="1" required />
-  <label for="toggle2">Hotness</label>
- </fieldset>
+ <button id="toggle1" role="switch" aria-checked="true" class="toggle" ><input name="toggle1" type="range" min="0" max="1" step="1" value="1" required /></button>
+ <label for="toggle1" style="color: #00f;">Coolness</label><br />
+
+ <button id="toggle2" role="switch" aria-checked="false" class="toggle"><input name="toggle2" type="range" min="0" max="1" step="1" value="0" required /> </button>
+ <label for="toggle2" style="color: #f00;">Hotness</label>
 </form>
 
-<p>The only problem? We're back to not being accessible again, and I'm not sure of the best way to fix that problem. If you've got some ideas how to fix that, <a href="mailto:knave@7415comics.com">love to hear from you</a>.</p>
+<p>The only problem? We're back to not being not-so-accessible again. Now, I've gone through and added some ARIA code in for the "switch" role, which I think will help, but I'm not sure that takes care of everything. If you've got some ideas on how to improve it further, <a href="mailto:knave@7415comics.com">I love to hear from you</a>.</p>
 
 <p><em>I haven't styled or tested these in IE/Edge yet, because I don't have easy access to a Windows machine. If anyone has any suggestions for styling I'd love to hear from you, too.</em></p>
 
+<p class="update"><strong>Second Version: 2019/04/24</strong> Replaced the fieldset with a button (more accessible), and added in some ARIA code for the "switch" role. Also replaced stepDown() and stepUp() with straight up value assignments in case something goes wrong.</p>
 <p class="update"><strong>First Version: 2019/04/24</strong></p>
-
 
 </section>
 
-</body>
-</html>
 
 <script>
 
 // And here's the meat of the script
-// Basically, let's click on a fieldset with the class toggle.
-// Let's find the children of that fieldset with the same name as its id
+// Basically, let's click on a button with the class toggle.
+// Let's find the children of that button with the same name as its id
 // Let's take the first one of those
 // If it's 1, set the value to 0, and vice versa
+// And toggle the aria-checked value while you're at it
 
-document.querySelectorAll("fieldset.toggle").forEach(function(elem) {
+document.querySelectorAll("button.toggle").forEach(function(elem) {
   elem.addEventListener("click",function(event) {
+    event.preventDefault();
     tog = document.getElementsByName(this.id)[0]; 
-    (tog.value == 1) ? (tog.stepDown()) : (tog.stepUp());
+    if (tog.value == 1) { 
+      tog.value = 0;
+      this.setAttribute("aria-checked","false");
+    } else {
+      tog.value = 1;
+      this.setAttribute("aria-checked","true");
+    }
     return false;
   });
 });
@@ -184,5 +196,6 @@ document.querySelectorAll("fieldset.toggle").forEach(function(elem) {
 //  
 
 </script>
+
 </body>
 </html>
